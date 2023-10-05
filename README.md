@@ -1,7 +1,7 @@
 ## Overview
 GitHub PR Tool is a Chrome extension designed to streamline the process of marking all files as viewed in GitHub pull requests. It adds a convenient interface to easily check or uncheck all files in a pull request.
 
-## Dev Installation
+## Installation
 1. Download the extension files or clone the repository.
 2. Open Google Chrome and navigate to chrome://extensions/.
 3. Enable "Developer mode" in the top right corner.
