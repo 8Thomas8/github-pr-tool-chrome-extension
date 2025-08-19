@@ -1,0 +1,63 @@
+body {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f6f8fa;
+    padding-bottom: 0.5rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    color: #24292e;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
+button {
+    cursor: pointer;
+    border-color: #1f232826;
+    color: white;
+    font-size: .875rem;
+    font-weight: 500;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    transition: background 0.2s;
+}
+
+#check-all-files-btn {
+    background-color: #28a745;
+}
+#check-all-files-btn:hover {
+    background-color: #2ec451;
+}
+#check-all-files-btn:active {
+    background-color: #26a141;
+}
+
+#uncheck-all-files-btn {
+    background-color: #dd0303;
+    margin: 0.5rem 0 0 0;
+}
+#uncheck-all-files-btn:hover {
+    background-color: #f81f1f;
+}
+#uncheck-all-files-btn:active {
+    background-color: #c71a1a;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #0d1117;
+        color: #c9d1d9;
+    }
+    h1 {
+        color: #c9d1d9;
+    }
+    button {
+        color: #fff;
+    }
+}
