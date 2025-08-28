@@ -19,3 +19,6 @@ Thumbs.db
 # JetBrains IDEs
 .idea/
 *.iml
+
+# Build outputs
+*.zip
