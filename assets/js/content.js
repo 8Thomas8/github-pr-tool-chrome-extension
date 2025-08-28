@@ -1,10 +1,12 @@
 chrome.runtime.onMessage.addListener(async (request) => {
   const actions = {
     checkAll: {
-      selector: 'label.js-reviewed-toggle.color-border-muted',
+      selector:
+        'label.js-reviewed-toggle.color-border-muted, button[type="button"][aria-pressed="false"].prc-Button-ButtonBase-c50BI',
     },
     uncheckAll: {
-      selector: 'label.js-reviewed-toggle.color-border-accent',
+      selector:
+        'label.js-reviewed-toggle.color-border-accent, button[type="button"][aria-pressed="true"].prc-Button-ButtonBase-c50BI',
     },
   }
 
