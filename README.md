@@ -11,6 +11,11 @@ GitHub PR Tool is a Chrome extension designed to streamline the process of marki
 3. Enable "Developer mode" in the top right corner.
 4. Click on "Load unpacked" and select the folder containing the extension files.
 
+## npm Scripts
+
+- `npm run lint`: Runs ESLint to analyze code quality.
+- `npm run format`: Formats code using Prettier.
+
 ## Usage
 
 Once the extension is installed, you can click on its icon in the Chrome toolbar to open the popup. The popup provides two buttons:
