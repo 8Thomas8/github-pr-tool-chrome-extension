@@ -1,16 +1,15 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const checkAllBtn = document.getElementById('check-all-files-btn')
-  const uncheckAllBtn = document.getElementById('uncheck-all-files-btn')
+document.addEventListener('DOMContentLoaded', () => {
+  const addClickListener = (btnId, action) => {
+    const btn = document.getElementById(btnId)
+    if (btn) {
+      btn.addEventListener('click', () => {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+          chrome.tabs.sendMessage(tabs[0].id, { action })
+        })
+      })
+    }
+  }
 
-  checkAllBtn.addEventListener('click', function () {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'checkAll' })
-    })
-  })
-
-  uncheckAllBtn.addEventListener('click', function () {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'uncheckAll' })
-    })
-  })
+  addClickListener('check-all-files-btn', 'checkAll')
+  addClickListener('uncheck-all-files-btn', 'uncheckAll')
 })
