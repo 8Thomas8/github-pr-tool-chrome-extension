@@ -1,4 +1,5 @@
 chrome.runtime.onMessage.addListener(async (request) => {
+  // prc-Button-ButtonBase-c50BI is a maybe be a generated class name, it may change in the future
   const actions = {
     checkAll: {
       selector:
