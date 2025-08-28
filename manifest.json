@@ -3,9 +3,7 @@
   "name": "GitHub PR Tool",
   "version": "0.1.2",
   "description": "Mark all files as viewed / not viewed in GitHub pull requests.",
-  "permissions": [
-    "activeTab"
-  ],
+  "permissions": ["activeTab"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "assets/images/icon.png",
@@ -14,9 +12,7 @@
   "icons": {
     "48": "assets/images/icon.png"
   },
-  "host_permissions": [
-    "https://github.com/**/**/pull/**/files"
-  ],
+  "host_permissions": ["https://github.com/**/**/pull/**/files"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

@@ -1,44 +1,29 @@
-chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
-    if (request.action === 'checkAll') {
-        await checkAllElements();
-    }
-    if (request.action === 'uncheckAll') {
-        await uncheckAllElements();
-    }
-});
+chrome.runtime.onMessage.addListener(async (request) => {
+  // prc-Button-ButtonBase-c50BI is a maybe be a generated class name, it may change in the future
+  const actions = {
+    checkAll: {
+      selector:
+        'label.js-reviewed-toggle.color-border-muted, button[type="button"][aria-pressed="false"].prc-Button-ButtonBase-c50BI',
+    },
+    uncheckAll: {
+      selector:
+        'label.js-reviewed-toggle.color-border-accent, button[type="button"][aria-pressed="true"].prc-Button-ButtonBase-c50BI',
+    },
+  }
 
-async function checkAllElements() {
-    const elements = document.querySelectorAll('label.js-reviewed-toggle.color-border-muted');
+  if (actions[request.action]) {
+    await processElements(actions[request.action].selector)
+  }
+})
 
-    for (let i = 0; i < elements.length; i++) {
-        await clickElement(elements[i]);
-        await new Promise(resolve => setTimeout(resolve, 150));
-    }
-
-    console.log("All files are checked !");
+async function processElements(selector) {
+  const elements = document.querySelectorAll(selector)
+  for (const element of elements) {
+    element.click()
+    await delay(150)
+  }
 }
 
-async function uncheckAllElements() {
-    const elements = document.querySelectorAll('label.js-reviewed-toggle.color-border-accent');
-
-    for (let i = 0; i < elements.length; i++) {
-        await clickElement(elements[i]);
-        await new Promise(resolve => setTimeout(resolve, 150));
-    }
-
-    console.log("All files are unchecked !");
-}
-
-async function clickElement(element) {
-    return new Promise(resolve => {
-        if (element) {
-            element.click();
-            resolve();
-        } else {
-            setTimeout(async () => {
-                await clickElement(element);
-                resolve();
-            }, 50);
-        }
-    });
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
