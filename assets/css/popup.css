@@ -1,81 +1,88 @@
 body {
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    background-color: #f6f8fa;
-    padding-bottom: 0.5rem;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
-    text-align: center;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  background-color: #f6f8fa;
+  padding-bottom: 0.5rem;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif;
+  text-align: center;
 }
 
 h1 {
-    color: #24292e;
-    margin-bottom: 1rem;
-    margin-top: 0.5rem;
+  color: #24292e;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
 }
 
 .btn {
-    cursor: pointer;
-    border-color: #1f232826;
-    color: white;
-    font-size: .875rem;
-    font-weight: 500;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 6px;
-    padding: 0.5rem 0.75rem;
-    transition: background 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.1rem;
+  cursor: pointer;
+  border-color: #1f232826;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
 }
 
 .btn svg {
-    fill: currentColor;
-    height: 1.5em;
-    width: 1.5em;
+  fill: currentColor;
+  height: 1.5em;
+  width: 1.5em;
 }
 
 .btn + .btn {
-    margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .btn-check-all {
-    background-color: #28a745;
+  background-color: #28a745;
 }
 
 .btn-check-all:hover {
-    background-color: #2ec451;
+  background-color: #2ec451;
 }
 
 .btn-check-all:active {
-    background-color: #26a141;
+  background-color: #26a141;
 }
 
 .btn-uncheck-all {
-    background-color: #dd0303;
+  background-color: #dd0303;
 }
 
 .btn-uncheck-all:hover {
-    background-color: #f81f1f;
+  background-color: #f81f1f;
 }
 
 .btn-uncheck-all:active {
-    background-color: #c71a1a;
+  background-color: #c71a1a;
 }
 
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: #0d1117;
-        color: #c9d1d9;
-    }
-    h1 {
-        color: #c9d1d9;
-    }
-    button {
-        color: #fff;
-    }
+  body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+  }
+  h1 {
+    color: #c9d1d9;
+  }
+  button {
+    color: #fff;
+  }
 }
