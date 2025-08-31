@@ -23,6 +23,7 @@ export default [
       'arrow-body-style': ['error', 'as-needed'],
       'object-shorthand': ['error', 'always'],
       'prefer-template': 'error',
+      'eol-last': ['error', 'always'],
     },
   },
 ]
