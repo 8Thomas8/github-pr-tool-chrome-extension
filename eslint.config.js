@@ -1,9 +1,10 @@
 import js from '@eslint/js'
-import prettier from 'eslint-config-prettier'
+import prettierConfig from 'eslint-config-prettier'
+import prettierPlugin from 'eslint-plugin-prettier'
 
 export default [
   js.configs.recommended,
-  prettier,
+  prettierConfig,
   {
     files: ['**/*.js'],
     languageOptions: {
@@ -14,7 +15,9 @@ export default [
         setTimeout: 'readonly',
       },
     },
+    plugins: { prettier: prettierPlugin },
     rules: {
+      'prettier/prettier': 'error',
       'no-var': 'error',
       'prefer-const': 'warn',
       'no-unused-vars': 'warn',
