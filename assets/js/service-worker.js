@@ -1,11 +1,17 @@
 chrome.commands.onCommand.addListener((command) => {
+  let action = ''
+
   if (command === 'check-all-files') {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'checkAll' })
-    })
+    action = 'checkAll'
   } else if (command === 'uncheck-all-files') {
+    action = 'uncheckAll'
+  }
+
+  if (action) {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'uncheckAll' })
+      if (tabs[0]) {
+        chrome.tabs.sendMessage(tabs[0].id, { action })
+      }
     })
   }
 })
