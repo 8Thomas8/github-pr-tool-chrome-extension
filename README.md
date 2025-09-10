@@ -25,6 +25,22 @@ two buttons:
 - Check all files: Marks all files as viewed in the current GitHub pull request.
 - Uncheck all files: Unmarks all files in the current GitHub pull request.
 
+## Keyboard shortcuts
+
+The extension provides the following default shortcuts:
+
+- **Check all files:** `Alt+Shift+K`.
+- **Uncheck all files:** `Alt+Shift+U`.
+
+### How to Customize
+
+You can easily customize these shortcuts to your preference:
+
+1. Open a new tab and navigate to `chrome://extensions/shortcuts`.
+2. Find the GitHub PR Tool section in the list.
+3. Click the pencil icon (✏️) next to the command you wish to change.
+4. Press your new desired key combination.
+
 ## Contributions
 
 This extension is open for contributions. If you have ideas for improvements or new features, feel free to fork the
