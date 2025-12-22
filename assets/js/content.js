@@ -2,12 +2,10 @@ chrome.runtime.onMessage.addListener(async (request) => {
   // prc-Button-ButtonBase-c50BI is a maybe be a generated class name, it may change in the future
   const actions = {
     checkAll: {
-      selector:
-        'label.js-reviewed-toggle.color-border-muted, button[type="button"][aria-pressed="false"].prc-Button-ButtonBase-c50BI',
+      selector: 'button[type="button"][aria-pressed="false"][class*="prc-Button-ButtonBase-"]',
     },
     uncheckAll: {
-      selector:
-        'label.js-reviewed-toggle.color-border-accent, button[type="button"][aria-pressed="true"].prc-Button-ButtonBase-c50BI',
+      selector: 'button[type="button"][aria-pressed="true"][class*="prc-Button-ButtonBase-"]',
     },
   }
 
