@@ -1,27 +1,50 @@
 chrome.runtime.onMessage.addListener(async (request) => {
-  // prc-Button-ButtonBase-c50BI is a maybe be a generated class name, it may change in the future
   const actions = {
     checkAll: {
-      selector:
-        'label.js-reviewed-toggle.color-border-muted, button[type="button"][aria-pressed="false"].prc-Button-ButtonBase-c50BI',
+      selector: 'button[type="button"][aria-pressed="false"][class*="prc-Button-ButtonBase-"]',
     },
     uncheckAll: {
-      selector:
-        'label.js-reviewed-toggle.color-border-accent, button[type="button"][aria-pressed="true"].prc-Button-ButtonBase-c50BI',
+      selector: 'button[type="button"][aria-pressed="true"][class*="prc-Button-ButtonBase-"]',
     },
   }
 
-  if (actions[request.action]) {
-    await processElements(actions[request.action].selector)
+  const action = actions[request.action]
+  if (action) {
+    await processElements(action.selector)
   }
 })
 
-async function processElements(selector) {
-  const elements = document.querySelectorAll(selector)
-  for (const element of elements) {
-    element.click()
-    await delay(150)
+async function processElements(selector, maxRetries = 6) {
+  let processed = 0
+  let attempt = 0
+  while (attempt < maxRetries) {
+    const seen = new Set()
+    const elements = [...document.querySelectorAll(selector)].filter(
+      (el) => !seen.has(el) && seen.add(el)
+    )
+
+    if (elements.length === 0) break
+    let clickedThisRound = 0
+    for (const el of elements) {
+      try {
+        el.scrollIntoView({ behavior: 'auto', block: 'center' })
+        el.click()
+        el.setAttribute('data-gprt-processed', '1')
+        clickedThisRound++
+        await delay(150)
+      } catch {
+        // ignore errors to continue
+      }
+    }
+    processed += clickedThisRound
+    if (clickedThisRound === 0) break
+    attempt++
+    await delay(300)
   }
+  document
+    .querySelectorAll('[data-gprt-processed="1"]')
+    .forEach((el) => el.removeAttribute('data-gprt-processed'))
+  return processed
 }
 
 function delay(ms) {
