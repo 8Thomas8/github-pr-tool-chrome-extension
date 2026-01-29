@@ -1,32 +1,68 @@
+/* assets/css/popup.css */
+:root {
+  --bg: #f6f8fa;
+  --text: #24292e;
+
+  --btn-text: #ffffff;
+  --btn-border: #1f232826;
+
+  --btn-check-bg: #28a745;
+  --btn-check-hover: #2ec451;
+  --btn-check-active: #26a141;
+
+  --btn-uncheck-bg: #dd0303;
+  --btn-uncheck-hover: #f81f1f;
+  --btn-uncheck-active: #c71a1a;
+
+  --report-link: #2b7fffff;
+  --report-link-hover: #2b55ff;
+}
+
+/* Dark theme variable overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1117;
+    --text: #c9d1d9;
+
+    --btn-text: #ffffff;
+
+    --report-link: #8b949e;
+    --report-link-hover: #c9d1d9;
+  }
+}
+
 body {
   width: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  background-color: #f6f8fa;
+  background-color: var(--bg);
   padding-bottom: 0.5rem;
   font-family:
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
-    Segoe UI,
+    'Segoe UI',
     Helvetica,
     Arial,
     sans-serif;
   text-align: center;
+  color: var(--text);
 }
 
 h1 {
-  color: #24292e;
+  color: var(--text);
   margin-bottom: 1rem;
   margin-top: 0.5rem;
 }
 
+/* Main buttons */
+
 .btn {
   cursor: pointer;
-  border-color: #1f232826;
-  color: white;
+  border-color: var(--btn-border);
+  color: var(--btn-text);
   font-size: 0.875rem;
   font-weight: 500;
   border-width: 1px;
@@ -51,38 +87,49 @@ h1 {
 }
 
 .btn-check-all {
-  background-color: #28a745;
+  background-color: var(--btn-check-bg);
 }
 
 .btn-check-all:hover {
-  background-color: #2ec451;
+  background-color: var(--btn-check-hover);
 }
 
 .btn-check-all:active {
-  background-color: #26a141;
+  background-color: var(--btn-check-active);
 }
 
 .btn-uncheck-all {
-  background-color: #dd0303;
+  background-color: var(--btn-uncheck-bg);
 }
 
 .btn-uncheck-all:hover {
-  background-color: #f81f1f;
+  background-color: var(--btn-uncheck-hover);
 }
 
 .btn-uncheck-all:active {
-  background-color: #c71a1a;
+  background-color: var(--btn-uncheck-active);
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #0d1117;
-    color: #c9d1d9;
-  }
-  h1 {
-    color: #c9d1d9;
-  }
-  button {
-    color: #fff;
-  }
+/* Report issue link */
+
+.report-issue-link {
+  cursor: pointer;
+  color: var(--report-link);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  transition: all 0.2s;
+  margin-top: 1rem;
+  text-decoration: none;
+}
+
+.report-issue-link:hover {
+  color: var(--report-link-hover);
+}
+
+.report-issue-link svg {
+  fill: currentColor;
+  height: 16px;
+  width: 16px;
 }
