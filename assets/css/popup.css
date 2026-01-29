@@ -14,7 +14,7 @@
   --btn-uncheck-hover: #f81f1f;
   --btn-uncheck-active: #c71a1a;
 
-  --report-link: #2b7fffff;
+  --report-link: #2b7fff;
   --report-link-hover: #2b55ff;
 }
 
@@ -63,7 +63,7 @@ h1 {
   cursor: pointer;
   border-color: var(--btn-border);
   color: var(--btn-text);
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 500;
   border-width: 1px;
   border-style: solid;
@@ -113,13 +113,13 @@ h1 {
 /* Report issue link */
 
 .report-issue-link {
-  cursor: pointer;
+  font-size: 12px;
   color: var(--report-link);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.1rem;
-  transition: all 0.2s;
+  transition: color 0.2s;
   margin-top: 1rem;
   text-decoration: none;
 }
@@ -130,6 +130,6 @@ h1 {
 
 .report-issue-link svg {
   fill: currentColor;
-  height: 16px;
-  width: 16px;
+  height: 1em;
+  width: 1em;
 }
