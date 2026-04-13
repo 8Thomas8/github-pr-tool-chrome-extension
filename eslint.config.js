@@ -14,6 +14,7 @@ export default [
         document: 'readonly',
         setTimeout: 'readonly',
         Promise: 'readonly',
+        AbortController: 'readonly',
       },
     },
     plugins: { prettier: prettierPlugin },
