@@ -1,4 +1,12 @@
+let currentController = null
+
 chrome.runtime.onMessage.addListener(async (request) => {
+  if (currentController) {
+    currentController.abort()
+  }
+  currentController = new AbortController()
+  const { signal } = currentController
+
   const newExperience = {
     checkAll: 'button[type="button"][aria-pressed="false"][class*="prc-Button-ButtonBase-"]',
     uncheckAll: 'button[type="button"][aria-pressed="true"][class*="prc-Button-ButtonBase-"]',
@@ -15,14 +23,16 @@ chrome.runtime.onMessage.addListener(async (request) => {
     .join(', ')
 
   if (selector) {
-    await processElements(selector)
+    await processElements(selector, signal)
   }
 })
 
-async function processElements(selector, maxRetries = 6) {
+async function processElements(selector, signal, maxRetries = 6) {
   let processed = 0
   let attempt = 0
   while (attempt < maxRetries) {
+    if (signal.aborted) break
+
     const seen = new Set()
     const elements = [...document.querySelectorAll(selector)].filter(
       (el) => !seen.has(el) && seen.add(el)
@@ -31,6 +41,7 @@ async function processElements(selector, maxRetries = 6) {
     if (elements.length === 0) break
     let clickedThisRound = 0
     for (const el of elements) {
+      if (signal.aborted) break
       try {
         el.scrollIntoView({ behavior: 'auto', block: 'center' })
         el.click()
