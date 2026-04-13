@@ -1,16 +1,21 @@
 chrome.runtime.onMessage.addListener(async (request) => {
-  const actions = {
-    checkAll: {
-      selector: 'button[type="button"][aria-pressed="false"][class*="prc-Button-ButtonBase-"]',
-    },
-    uncheckAll: {
-      selector: 'button[type="button"][aria-pressed="true"][class*="prc-Button-ButtonBase-"]',
-    },
+  const newExperience = {
+    checkAll: 'button[type="button"][aria-pressed="false"][class*="prc-Button-ButtonBase-"]',
+    uncheckAll: 'button[type="button"][aria-pressed="true"][class*="prc-Button-ButtonBase-"]',
   }
 
-  const action = actions[request.action]
-  if (action) {
-    await processElements(action.selector)
+  const classicExperience = {
+    checkAll: 'input.js-reviewed-checkbox:not(:checked)',
+    uncheckAll: 'input.js-reviewed-checkbox:checked',
+  }
+
+  const selector = [newExperience, classicExperience]
+    .map((exp) => exp[request.action])
+    .filter(Boolean)
+    .join(', ')
+
+  if (selector) {
+    await processElements(selector)
   }
 })
 
