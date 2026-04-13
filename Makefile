@@ -3,7 +3,7 @@ EXT_NAME = github-pr-tool-chrome-extension
 ZIP_FILE = $(EXT_NAME).zip
 
 # Folders and files to include
-FILES = manifest.json popup.html LICENSE
+FILES = manifest.json popup.html background.js LICENSE
 DIRS  = assets
 
 .PHONY: all clean zip
