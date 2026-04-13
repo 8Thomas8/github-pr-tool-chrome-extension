@@ -16,6 +16,10 @@
 
   --report-link: #2b7fff;
   --report-link-hover: #2b55ff;
+
+  --update-text: #0969da;
+  --update-link-bg: #ddf4ff;
+  --update-link-hover: #c8e8ff;
 }
 
 /* Dark theme variable overrides */
@@ -28,6 +32,10 @@
 
     --report-link: #8b949e;
     --report-link-hover: #c9d1d9;
+
+    --update-text: #58a6ff;
+    --update-link-bg: #121d2f;
+    --update-link-hover: #1a2940;
   }
 }
 
@@ -108,6 +116,39 @@ h1 {
 
 .btn-uncheck-all:active {
   background-color: var(--btn-uncheck-active);
+}
+
+/* Update notification link */
+
+.update-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 12px;
+  color: var(--update-text);
+  text-decoration: none;
+  text-align: center;
+  padding: 0.3rem 0.5rem;
+  margin-bottom: 0.4rem;
+  border-radius: 6px;
+  background-color: var(--update-link-bg);
+  transition: background-color 0.2s;
+}
+
+.update-link:hover {
+  background-color: var(--update-link-hover);
+}
+
+.update-link svg {
+  fill: currentColor;
+  height: 0.85rem;
+  width: 0.85rem;
+  flex-shrink: 0;
+}
+
+.update-link[hidden] {
+  display: none;
 }
 
 /* Report issue link */

@@ -13,6 +13,7 @@ export default [
         chrome: 'readonly',
         document: 'readonly',
         setTimeout: 'readonly',
+        Promise: 'readonly',
       },
     },
     plugins: { prettier: prettierPlugin },
