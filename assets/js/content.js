@@ -23,12 +23,14 @@ chrome.runtime.onMessage.addListener(async (request) => {
     .join(', ')
 
   if (selector) {
-    const total = document.querySelectorAll(selector).length
-    chrome.runtime.sendMessage({ type: 'progress', processed: 0, total })
+    const countTotal = () =>
+      document.querySelectorAll(selector).length +
+      document.querySelectorAll('[data-gprt-processed="1"]').length
+    chrome.runtime.sendMessage({ type: 'progress', processed: 0, total: countTotal() })
     await processElements(selector, signal, 6, (processed) => {
-      chrome.runtime.sendMessage({ type: 'progress', processed, total })
+      chrome.runtime.sendMessage({ type: 'progress', processed, total: countTotal() })
     })
-    chrome.runtime.sendMessage({ type: 'done', total })
+    chrome.runtime.sendMessage({ type: 'done' })
   }
 })
 
