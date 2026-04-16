@@ -19,7 +19,6 @@
 
   --update-text: #0969da;
   --update-link-bg: #ddf4ff;
-  --update-link-hover: #c8e8ff;
 }
 
 /* Dark theme variable overrides */
@@ -35,7 +34,6 @@
 
     --update-text: #58a6ff;
     --update-link-bg: #121d2f;
-    --update-link-hover: #1a2940;
   }
 }
 
@@ -118,26 +116,31 @@ h1 {
   background-color: var(--btn-uncheck-active);
 }
 
-/* Update notification link */
+/* Update notification */
+
+.update-notification {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 12px;
+  padding: 0.3rem 0.3rem 0.3rem 0.5rem;
+  margin-bottom: 0.4rem;
+  border-radius: 6px;
+  background-color: var(--update-link-bg);
+}
+
+.update-notification[hidden] {
+  display: none;
+}
 
 .update-link {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
-  font-size: 12px;
+  flex: 1;
   color: var(--update-text);
   text-decoration: none;
-  text-align: center;
-  padding: 0.3rem 0.5rem;
-  margin-bottom: 0.4rem;
-  border-radius: 6px;
-  background-color: var(--update-link-bg);
-  transition: background-color 0.2s;
-}
-
-.update-link:hover {
-  background-color: var(--update-link-hover);
 }
 
 .update-link svg {
@@ -147,8 +150,28 @@ h1 {
   flex-shrink: 0;
 }
 
-.update-link[hidden] {
-  display: none;
+.dismiss-update-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--update-text);
+  padding: 0.15rem;
+  border-radius: 4px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.dismiss-update-btn:hover {
+  opacity: 1;
+}
+
+.dismiss-update-btn svg {
+  fill: currentColor;
+  height: 0.7rem;
+  width: 0.7rem;
 }
 
 /* Report issue link */
