@@ -23,11 +23,18 @@ chrome.runtime.onMessage.addListener(async (request) => {
     .join(', ')
 
   if (selector) {
-    await processElements(selector, signal)
+    const countTotal = () =>
+      document.querySelectorAll(selector).length +
+      document.querySelectorAll('[data-gprt-processed="1"]').length
+    chrome.runtime.sendMessage({ type: 'progress', processed: 0, total: countTotal() })
+    await processElements(selector, signal, 6, (processed) => {
+      chrome.runtime.sendMessage({ type: 'progress', processed, total: countTotal() })
+    })
+    chrome.runtime.sendMessage({ type: 'done' })
   }
 })
 
-async function processElements(selector, signal, maxRetries = 6) {
+async function processElements(selector, signal, maxRetries = 6, onProgress) {
   let processed = 0
   let attempt = 0
   while (attempt < maxRetries) {
@@ -47,12 +54,13 @@ async function processElements(selector, signal, maxRetries = 6) {
         el.click()
         el.setAttribute('data-gprt-processed', '1')
         clickedThisRound++
+        processed++
+        onProgress?.(processed)
         await delay(150)
       } catch {
         // ignore errors to continue
       }
     }
-    processed += clickedThisRound
     if (clickedThisRound === 0) break
     attempt++
     await delay(300)

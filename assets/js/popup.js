@@ -13,6 +13,22 @@ document.addEventListener('DOMContentLoaded', () => {
   addClickListener('check-all-files-btn', 'checkAll')
   addClickListener('uncheck-all-files-btn', 'uncheckAll')
 
+  const progressContainer = document.getElementById('progress-container')
+  const progressText = document.getElementById('progress-text')
+  const progressFill = document.getElementById('progress-fill')
+
+  chrome.runtime.onMessage.addListener((message) => {
+    if (message.type === 'progress') {
+      progressContainer.hidden = false
+      progressContainer.classList.remove('done')
+      progressText.textContent = `${message.processed}/${message.total} files`
+      const percent = message.total > 0 ? (message.processed / message.total) * 100 : 0
+      progressFill.style.width = `${percent}%`
+    } else if (message.type === 'done') {
+      progressContainer.classList.add('done')
+    }
+  })
+
   chrome.storage.local.get('updateNotification').then((result) => {
     const notification = result.updateNotification
     if (!notification) return

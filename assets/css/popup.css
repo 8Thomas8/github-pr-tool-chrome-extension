@@ -174,6 +174,51 @@ h1 {
   width: 0.7rem;
 }
 
+/* Progress bar */
+
+.progress-container {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.progress-container[hidden] {
+  display: none;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.progress-bar {
+  height: 6px;
+  background-color: var(--btn-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background-color: var(--btn-check-bg);
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+
+.progress-container.done .progress-fill {
+  animation: blink 0.8s ease;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  25% { opacity: 0.3; }
+  50% { opacity: 1; }
+  75% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
 /* Report issue link */
 
 .report-issue-link {
