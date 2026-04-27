@@ -3,7 +3,7 @@
   "name": "GitHub PR Tool",
   "version": "0.1.9",
   "description": "Mark all files as viewed / not viewed in GitHub pull requests.",
-  "permissions": ["activeTab", "storage"],
+  "permissions": ["activeTab", "storage", "scripting"],
   "background": {
     "service_worker": "background.js"
   },

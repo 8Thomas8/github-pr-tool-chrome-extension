@@ -3,8 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById(btnId)
     if (btn) {
       btn.addEventListener('click', () => {
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          chrome.tabs.sendMessage(tabs[0].id, { action })
+        chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+          const tabId = tabs[0]?.id
+          if (!tabId) return
+          try {
+            await chrome.tabs.sendMessage(tabId, { action })
+          } catch {
+            try {
+              await chrome.scripting.executeScript({
+                target: { tabId },
+                files: ['assets/js/content.js'],
+              })
+              await chrome.tabs.sendMessage(tabId, { action })
+            } catch {
+              // onglet incompatible (hors page PR GitHub), no-op
+            }
+          }
         })
       })
     }
