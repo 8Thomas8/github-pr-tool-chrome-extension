@@ -27,8 +27,10 @@ if (!window.__gprtContentLoaded) {
 
     if (selector) {
       const countTotal = () =>
-        document.querySelectorAll(selector).length +
-        document.querySelectorAll('[data-gprt-processed="1"]').length
+        new Set([
+          ...document.querySelectorAll(selector),
+          ...document.querySelectorAll('[data-gprt-processed="1"]'),
+        ]).size
       chrome.runtime.sendMessage({ type: 'progress', processed: 0, total: countTotal() })
       await processElements(selector, signal, 6, (processed) => {
         chrome.runtime.sendMessage({ type: 'progress', processed, total: countTotal() })
