@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const percent = message.total > 0 ? (message.processed / message.total) * 100 : 0
       progressFill.style.width = `${percent}%`
     } else if (message.type === 'done') {
+      progressFill.style.width = '100%'
       progressContainer.classList.add('done')
     }
   })
