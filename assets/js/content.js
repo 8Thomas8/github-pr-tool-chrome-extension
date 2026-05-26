@@ -26,52 +26,45 @@ if (!window.__gprtContentLoaded) {
       .join(', ')
 
     if (selector) {
-      const countTotal = () =>
-        document.querySelectorAll(selector).length +
-        document.querySelectorAll('[data-gprt-processed="1"]').length
-      chrome.runtime.sendMessage({ type: 'progress', processed: 0, total: countTotal() })
-      await processElements(selector, signal, 6, (processed) => {
-        chrome.runtime.sendMessage({ type: 'progress', processed, total: countTotal() })
+      await processElements(selector, signal, 6, (processed, total) => {
+        chrome.runtime.sendMessage({ type: 'progress', processed, total })
       })
       chrome.runtime.sendMessage({ type: 'done' })
     }
   })
 
-  async function processElements(selector, signal, maxRetries = 6, onProgress) {
-    let processed = 0
-    let attempt = 0
-    while (attempt < maxRetries) {
-      if (signal.aborted) break
+  async function processElements(selector, signal, maxRetries, onProgress) {
+    const targets = new Set()
+    const done = new Set()
+    const discover = () => document.querySelectorAll(selector).forEach((el) => targets.add(el))
 
-      const seen = new Set()
-      const elements = [...document.querySelectorAll(selector)].filter(
-        (el) => !seen.has(el) && seen.add(el)
-      )
+    discover()
+    onProgress(0, targets.size)
 
-      if (elements.length === 0) break
-      let clickedThisRound = 0
-      for (const el of elements) {
-        if (signal.aborted) break
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      if (signal.aborted) return
+
+      discover()
+      const pending = [...targets].filter((el) => !done.has(el) && el.isConnected)
+      if (pending.length === 0) return
+
+      let clicked = 0
+      for (const el of pending) {
+        if (signal.aborted) return
         try {
           el.scrollIntoView({ behavior: 'auto', block: 'center' })
           el.click()
-          el.setAttribute('data-gprt-processed', '1')
-          clickedThisRound++
-          processed++
-          onProgress?.(processed)
+          done.add(el)
+          clicked++
+          onProgress(done.size, targets.size)
           await delay(150)
         } catch {
           // ignore errors to continue
         }
       }
-      if (clickedThisRound === 0) break
-      attempt++
+      if (clicked === 0) return
       await delay(300)
     }
-    document
-      .querySelectorAll('[data-gprt-processed="1"]')
-      .forEach((el) => el.removeAttribute('data-gprt-processed'))
-    return processed
   }
 
   function delay(ms) {

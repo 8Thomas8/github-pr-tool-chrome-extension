@@ -1,8 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const progressContainer = document.getElementById('progress-container')
+  const progressLabel = document.getElementById('progress-label')
+  const progressFill = document.getElementById('progress-fill')
+
   const addClickListener = (btnId, action) => {
     const btn = document.getElementById(btnId)
     if (btn) {
       btn.addEventListener('click', () => {
+        progressContainer.classList.remove('done')
+        progressContainer.classList.toggle('is-uncheck', action === 'uncheckAll')
         chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
           const tabId = tabs[0]?.id
           if (!tabId) return
@@ -27,15 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
   addClickListener('check-all-files-btn', 'checkAll')
   addClickListener('uncheck-all-files-btn', 'uncheckAll')
 
-  const progressContainer = document.getElementById('progress-container')
-  const progressText = document.getElementById('progress-text')
-  const progressFill = document.getElementById('progress-fill')
-
   chrome.runtime.onMessage.addListener((message) => {
     if (message.type === 'progress') {
       progressContainer.hidden = false
       progressContainer.classList.remove('done')
-      progressText.textContent = `${message.processed}/${message.total} files`
+      progressLabel.textContent = `${message.processed}/${message.total} files`
       const percent = message.total > 0 ? (message.processed / message.total) * 100 : 0
       progressFill.style.width = `${percent}%`
     } else if (message.type === 'done') {
